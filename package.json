@@ -1,0 +1,11 @@
+{
+  "name": "client-vault-root",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "bun --filter web dev",
+    "build": "bun --filter web build"
+  }
+}

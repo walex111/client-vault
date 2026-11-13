@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+.DS_Store
+
+# Next.js
+.next/
+out/
+
+# Environment files
+.env
+.env.local
+.env*.local
+
+# Drizzle local snapshots if applicable
+*.db
+*.sqlite
