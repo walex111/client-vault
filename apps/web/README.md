@@ -1,0 +1,76 @@
+<<<<<<< HEAD
+# client-vault
+
+A high-performance, zero-knowledge encrypted client portal designed for independent builders to share confidential deliverables, design assets, and files without relying on bloated SaaS tools or insecure email attachments.
+
+## Core Architecture & Security Model
+
+`client-vault` is built around a zero-trust security boundary. The backend and storage infrastructure never see plaintext files, cryptographic keys, or unencrypted metadata.
+
+1. **Client-Side Zero-Knowledge Encryption**: Files are encrypted and decrypted entirely in the browser using the native Web Crypto API (`AES-GCM` with a 256-bit key and a random 12-byte initialization vector) before a single byte touches the network.
+2. **Blind Storage via Cloudflare R2**: The application uses S3-compatible presigned URLs. Files are uploaded directly from the browser to Cloudflare R2 as unreadable ciphertext, completely bypassing the Next.js server and avoiding serverless payload limits.
+3. **The URL Fragment Key Boundary**: Decryption keys are passed exclusively via the URL hash fragment (`/v/[id]#key`). HTTP specifications dictate that URL fragments are never sent to servers or edge proxies, ensuring that logs never capture the key.
+4. **Immutable Audit Logging**: Every view and download event is recorded in a PostgreSQL database via Drizzle ORM, capturing access timestamps and event metadata while preserving file confidentiality.
+
+---
+
+## Tech Stack
+
+- **Framework**: Next.js (App Router) with TypeScript and Tailwind CSS.
+- **Database & ORM**: PostgreSQL paired with Drizzle ORM for relational metadata and audit trails.
+- **Cryptography**: Native browser Web Crypto API (`crypto.subtle`).
+- **Storage**: Cloudflare R2 via AWS SDK v3 (`@aws-sdk/client-s3`).
+- **Runtime & Package Management**: Bun, configured as a monorepo workspace.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have Bun installed on your machine.
+
+### Local Setup
+
+1. Clone the repository and install dependencies:
+   ```bash
+   bun install
+   ```
+=======
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+>>>>>>> 0bc96e4 (Initial commit from Create Next App)
